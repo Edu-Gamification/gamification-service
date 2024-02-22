@@ -24,9 +24,12 @@ public class UserResponseDTO {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("clanPoints")
+    @JsonProperty("clan_points")
     private int clanPoints;
 
     @JsonProperty("coins")
     private int coins;
+
+    @JsonProperty("is_active")
+    private boolean active;
 }
