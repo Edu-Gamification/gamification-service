@@ -1,5 +1,7 @@
-package com.business.money.util;
+package com.business.money.exception;
 
+import com.business.money.exception.exceptions.EventTypeNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +19,11 @@ public class AppExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining(", "));
         return ResponseEntity.status(exception.getStatusCode()).body( new ErrorMessage(errorMessage));
+    }
+
+    @ExceptionHandler(EventTypeNotFoundException.class)
+    private ResponseEntity<ErrorMessage> handleEventTypeNotFound(EventTypeNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorMessage(exception.getMessage()));
     }
 
 }

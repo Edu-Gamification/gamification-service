@@ -1,12 +1,14 @@
 package com.business.money.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "events")
@@ -14,16 +16,34 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    private UserEntity organizer;
+    private String title;
 
-    private LocalDate eventStart;
+    private String description;
 
-    private LocalDate eventEnd;
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private EventType type;
+
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "events_authors",
+            joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id")
+    )
+    private Set<UserEntity> authors;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
 
     private int quote;
+
+    private boolean clanOnly;
 }

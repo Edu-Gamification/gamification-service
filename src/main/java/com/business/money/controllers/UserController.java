@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @GetMapping("")
+    @GetMapping("/")
     public List<UserEntity> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -32,7 +32,7 @@ public class UserController {
         return userMapper.toUserResponseDTO(foundUser.orElse(null));
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public UserEntity saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws MethodArgumentNotValidException {
         UserEntity user = userMapper.toEntity(createUserDTO);
         user = userService.saveUser(user);

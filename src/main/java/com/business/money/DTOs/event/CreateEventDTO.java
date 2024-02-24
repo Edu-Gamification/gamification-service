@@ -1,0 +1,50 @@
+package com.business.money.DTOs.event;
+
+import com.business.money.entities.UserEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+
+@Getter
+@Setter
+public class CreateEventDTO {
+    @JsonProperty("title")
+    @NotNull(message = "Название не должно равняться null")
+    @NotBlank(message = "Название не должно быть пустым")
+    private String title;
+
+    @NotBlank(message = "Описание не должно быть пустым")
+    @NotNull(message = "Описание не должно равняться null")
+    @JsonProperty("description")
+    private String description;
+
+    @NotNull(message = "Тип мероприятия не должен равняться null")
+    @JsonProperty("type")
+    private String type;
+
+    @NotNull(message = "Время начала не должно быть пустым")
+    @JsonProperty("start_time")
+    private LocalDateTime startTime;
+
+    @NotNull(message = "Время окончания не должно быть пустым")
+    @JsonProperty("end_time")
+    private LocalDateTime endTime;
+
+    @Max(value = 50, message = "Максмиальное кол-во человек на мероприятии: 50")
+    @JsonProperty("quote")
+    private int quote = 5;
+
+    @JsonProperty("clan_only")
+    private boolean clanOnly = false;
+
+    @JsonProperty("authors")
+    private Set<Long> authors;
+}

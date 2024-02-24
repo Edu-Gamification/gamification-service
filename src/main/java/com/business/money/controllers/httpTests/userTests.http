@@ -4,20 +4,20 @@ Accept: application/json
 
 ###
 
-### POST TEST
-POST http://localhost:8080/users
+### POST USER TEST
+POST http://localhost:8080/users/
 Content-Type: application/json
 
 {
-  "firstname": "Дамир",
-  "lastname": "Гарифуллин",
+  "name": "Дамир",
+  "surname": "Гарифуллин",
   "patronymic": "Фаилевич",
   "email": "damirgarifullin7@gmail.com",
   "password": "password"
 }
 
 ### GET ALL USERS TEST
-GET http://localhost:8080/users
+GET http://localhost:8080/users/
 Accept: application/json
 
 

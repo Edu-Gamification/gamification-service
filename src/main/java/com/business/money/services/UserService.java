@@ -26,7 +26,11 @@ public class UserService {
     }
 
     public UserEntity saveUser(UserEntity userEntity) {
+        userEntity.setActive(true);
         return userRepo.save(userEntity);
     }
 
+    public void addAuthor(UserEntity user) {
+//        add(user);
+    }
 }

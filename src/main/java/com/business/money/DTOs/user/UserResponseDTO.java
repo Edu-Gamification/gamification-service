@@ -12,11 +12,11 @@ public class UserResponseDTO {
     @JsonProperty("id")
     private long id;
 
-    @JsonProperty("firstname")
-    private String firstname;
+    @JsonProperty("name")
+    private String name;
 
-    @JsonProperty("lastname")
-    private String lastname;
+    @JsonProperty("surname")
+    private String surname;
 
     @JsonProperty("patronymic")
     private String patronymic;

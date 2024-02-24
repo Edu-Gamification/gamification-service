@@ -1,3 +1,22 @@
+### POST EVENT TEST
+POST http://localhost:8080/events/
+Content-Type: application/json
+
+{
+  "title": "название",
+  "description": "описание",
+  "type": "Спорт",
+  "start_time": "2024-02-23T13:00:00",
+  "end_time": "2024-02-23T15:00:00",
+  "quote": 10,
+  "clan_only": false,
+  "authors": [
+    1,
+    2
+  ]
+}
+
+### GET ALL EVENTS TEST
 GET http://localhost:8080/events
 Accept: application/json
 

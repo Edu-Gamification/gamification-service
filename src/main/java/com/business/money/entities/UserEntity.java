@@ -1,11 +1,10 @@
 package com.business.money.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -13,14 +12,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String firstname;
+    private String name;
 
-    private String lastname;
+    private String surname;
 
     private String patronymic;
 
@@ -31,4 +31,10 @@ public class UserEntity {
     private int clanPoints;
 
     private int coins;
+
+    private boolean active;
+
+    @ToString.Exclude
+    @ManyToMany
+    private Set<EventEntity> authorOf;
 }
