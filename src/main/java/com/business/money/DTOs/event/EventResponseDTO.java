@@ -23,8 +23,8 @@ public class EventResponseDTO {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("event_type")
-    private EventType eventType;
+    @JsonProperty("type")
+    private EventType type;
 
     @JsonProperty("start_time")
     private LocalDateTime startTime;

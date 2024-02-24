@@ -27,8 +27,10 @@ public class EventController {
     @PostMapping("/")
     public EventResponseDTO saveNewEvent(@RequestBody @Valid CreateEventDTO createEventDTO) throws EventTypeNotFoundException {
         EventEntity eventEntity = eventMapper.toEventEntity(createEventDTO);
-        EventResponseDTO eventResponseDTO = eventMapper.toEventResponceDTO(eventService.save(eventEntity));
-//        System.out.println();
+        EventEntity event = eventService.save(eventEntity);
+        System.out.println(event);
+        EventResponseDTO eventResponseDTO = eventMapper.toEventResponceDTO(event);
+        System.out.println(eventResponseDTO);
         return eventResponseDTO;
     }
 }
