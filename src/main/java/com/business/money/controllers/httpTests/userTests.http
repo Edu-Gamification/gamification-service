@@ -9,9 +9,9 @@ POST http://localhost:8080/users/
 Content-Type: application/json
 
 {
-  "name": "Дамир",
-  "surname": "Гарифуллин",
-  "patronymic": "Фаилевич",
+  "name": "Эльза",
+  "surname": "Галимарданова",
+  "patronymic": "",
   "email": "damirgarifullin7@gmail.com",
   "password": "password"
 }

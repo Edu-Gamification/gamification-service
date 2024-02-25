@@ -2,10 +2,7 @@ package com.business.money.DTOs.event;
 
 import com.business.money.entities.UserEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,5 +43,7 @@ public class CreateEventDTO {
     private boolean clanOnly = false;
 
     @JsonProperty("authors")
+    @Size(min = 1, max = 5, message = "Кол-во авторов должно быть между 1 и 5")
+    @NotEmpty(message = "Должен быть хотя бы один автор")
     private Set<Long> authors;
 }

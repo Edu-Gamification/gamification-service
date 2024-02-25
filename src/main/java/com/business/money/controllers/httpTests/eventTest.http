@@ -11,8 +11,6 @@ Content-Type: application/json
   "quote": 10,
   "clan_only": false,
   "authors": [
-    1,
-    2
   ]
 }
 
