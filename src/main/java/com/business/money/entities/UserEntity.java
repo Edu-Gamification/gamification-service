@@ -35,6 +35,6 @@ public class UserEntity {
     private boolean active;
 
     @ToString.Exclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "authors")
     private Set<EventEntity> authorOf;
 }
