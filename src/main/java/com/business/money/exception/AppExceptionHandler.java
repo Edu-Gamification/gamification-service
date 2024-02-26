@@ -1,6 +1,7 @@
 package com.business.money.exception;
 
 import com.business.money.exception.exceptions.NotFoundException;
+import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +25,11 @@ public class AppExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     private ResponseEntity<ErrorMessage> handleEventTypeNotFound(NotFoundException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorMessage(exception.getMessage()));
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    private ResponseEntity<ErrorMessage> handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(exception.getMessage()));
     }
 
 }

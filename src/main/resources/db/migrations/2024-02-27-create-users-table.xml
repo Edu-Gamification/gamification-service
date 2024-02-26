@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-user-table" author="YellowKek">
+        <sql dbms="postgresql">
+            CREATE TABLE users (
+                id BIGINT PRIMARY KEY ,
+                name VARCHAR(50) NOT NULL ,
+                surname VARCHAR(100) NOT NULL ,
+                patronymic VARCHAR(100) ,
+                password VARCHAR(255) NOT NULL ,
+                email VARCHAR(100) NOT NULL UNIQUE,
+                active BOOLEAN NOT NULL ,
+                clan_points INTEGER NOT NULL DEFAULT 0,
+                coins INTEGER NOT NULL DEFAULT 0,
+                clan BIGINT REFERENCES clans(id)
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -4,6 +4,7 @@ import com.business.money.DTOs.user.CreateUserDTO;
 import com.business.money.DTOs.user.UserResponseDTO;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
+import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.mappers.UserMapper;
 import com.business.money.services.UserService;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException {
+    public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException, UserAlreadyExistsException {
         UserEntity user = userMapper.toEntity(createUserDTO);
         user = userService.saveUser(user);
         return userMapper.toUserResponseDTO(user);

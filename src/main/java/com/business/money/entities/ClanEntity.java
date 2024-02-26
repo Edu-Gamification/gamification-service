@@ -17,9 +17,14 @@ import java.util.List;
 public class ClanEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "name")
     private String name;
+
+//    @Column(name = "points_amount")
+//    private int pointsAmount;
 
     @OneToMany(mappedBy = "clan")
     private List<UserEntity> members;

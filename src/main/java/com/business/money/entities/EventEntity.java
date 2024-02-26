@@ -38,7 +38,7 @@ public class EventEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "events_members",
+            name = "events_participants",
             joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "id")
     )

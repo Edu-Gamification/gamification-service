@@ -3,6 +3,7 @@ package com.business.money.services;
 import com.business.money.entities.ClanEntity;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
+import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.mappers.UserMapper;
 import com.business.money.repos.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,8 @@ public class UserService {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Пользователь не найден"));
     }
 
-    public UserEntity saveUser(UserEntity userEntity) throws NotFoundException {
+    public UserEntity saveUser(UserEntity userEntity) throws NotFoundException, UserAlreadyExistsException {
+//        if (userRepo.findByEmail(userEntity.getEmail()).isEmpty()) throw new UserAlreadyExistsException("Пользователь с такой почтой уже существует");
         ClanEntity clan = clanService.findByName(userEntity.getClan().getName());
         userEntity.setClan(clan);
         userEntity.setActive(true);
