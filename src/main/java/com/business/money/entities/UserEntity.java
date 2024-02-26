@@ -3,7 +3,9 @@ package com.business.money.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -37,4 +39,7 @@ public class UserEntity {
     @ToString.Exclude
     @ManyToMany(mappedBy = "authors")
     private Set<EventEntity> authorOf;
+
+    @ManyToMany(mappedBy = "participants")
+    private Set<EventEntity> participantOf;
 }

@@ -19,5 +19,6 @@ public class Clan {
 
     private String name;
 
+//    @OneToMany
 //    private List<User> members;
 }

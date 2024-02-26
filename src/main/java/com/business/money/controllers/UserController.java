@@ -3,6 +3,7 @@ package com.business.money.controllers;
 import com.business.money.DTOs.user.CreateUserDTO;
 import com.business.money.DTOs.user.UserResponseDTO;
 import com.business.money.entities.UserEntity;
+import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.mappers.UserMapper;
 import com.business.money.services.UserService;
 import jakarta.validation.Valid;
@@ -27,9 +28,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserResponseDTO getUserById(@PathVariable long id) {
-        Optional<UserEntity> foundUser = userService.getUserById(id);
-        return userMapper.toUserResponseDTO(foundUser.orElse(null));
+    public UserResponseDTO getUserById(@PathVariable long id) throws NotFoundException {
+        UserEntity foundUser = userService.findById(id);
+        return userMapper.toUserResponseDTO(foundUser);
     }
 
     @PostMapping("/")

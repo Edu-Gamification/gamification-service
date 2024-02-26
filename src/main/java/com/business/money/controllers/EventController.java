@@ -1,11 +1,14 @@
 package com.business.money.controllers;
 
+import com.business.money.DTOs.event.AddParticipantDTO;
 import com.business.money.DTOs.event.CreateEventDTO;
 import com.business.money.DTOs.event.EventResponseDTO;
 import com.business.money.entities.EventEntity;
-import com.business.money.exception.exceptions.EventTypeNotFoundException;
+import com.business.money.entities.UserEntity;
+import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.mappers.EventMapper;
 import com.business.money.services.EventService;
+import com.business.money.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import java.util.*;
 public class EventController {
     private final EventService eventService;
     private final EventMapper eventMapper;
+    private final UserService userService;
 
     @GetMapping("/")
     public List<EventEntity> getAllEvents() {
@@ -25,12 +29,16 @@ public class EventController {
     }
 
     @PostMapping("/")
-    public EventResponseDTO saveNewEvent(@RequestBody @Valid CreateEventDTO createEventDTO) throws EventTypeNotFoundException {
+    public EventResponseDTO saveNewEvent(@RequestBody @Valid CreateEventDTO createEventDTO) throws NotFoundException {
         EventEntity eventEntity = eventMapper.toEventEntity(createEventDTO);
         EventEntity event = eventService.save(eventEntity);
-        System.out.println(event);
-        EventResponseDTO eventResponseDTO = eventMapper.toEventResponceDTO(event);
-        System.out.println(eventResponseDTO);
-        return eventResponseDTO;
+        return eventMapper.toEventResponseDTO(event);
+    }
+
+    @PostMapping("/assign")
+    public EventResponseDTO addParticipant(@RequestBody @Valid AddParticipantDTO addParticipantDTO) throws NotFoundException {
+        EventEntity event = eventService.findById(addParticipantDTO.getEventId());
+        UserEntity user = userService.findById(addParticipantDTO.getUserId());
+        return eventMapper.toEventResponseDTO(eventService.addParticipant(event, user));
     }
 }

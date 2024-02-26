@@ -1,6 +1,6 @@
 package com.business.money.exception;
 
-import com.business.money.exception.exceptions.EventTypeNotFoundException;
+import com.business.money.exception.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,8 +21,8 @@ public class AppExceptionHandler {
         return ResponseEntity.status(exception.getStatusCode()).body( new ErrorMessage(errorMessage));
     }
 
-    @ExceptionHandler(EventTypeNotFoundException.class)
-    private ResponseEntity<ErrorMessage> handleEventTypeNotFound(EventTypeNotFoundException exception) {
+    @ExceptionHandler(NotFoundException.class)
+    private ResponseEntity<ErrorMessage> handleEventTypeNotFound(NotFoundException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorMessage(exception.getMessage()));
     }
 

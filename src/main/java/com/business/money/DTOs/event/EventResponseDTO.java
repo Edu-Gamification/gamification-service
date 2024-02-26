@@ -40,4 +40,7 @@ public class EventResponseDTO {
 
     @JsonProperty("authors")
     private Set<UserResponseDTO> authors;
+
+    @JsonProperty("participants")
+    private Set<UserResponseDTO> participants;
 }

@@ -3,11 +3,7 @@ package com.business.money.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +34,14 @@ public class EventEntity {
             inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id")
     )
     private Set<UserEntity> authors;
+
+    @ManyToMany
+    @JoinTable(
+            name = "events_members",
+            joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "id")
+    )
+    private Set<UserEntity> participants;
 
     private LocalDateTime startTime;
 

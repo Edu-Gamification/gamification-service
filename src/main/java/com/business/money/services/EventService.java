@@ -3,7 +3,7 @@ package com.business.money.services;
 import com.business.money.entities.EventEntity;
 import com.business.money.entities.EventType;
 import com.business.money.entities.UserEntity;
-import com.business.money.exception.exceptions.EventTypeNotFoundException;
+import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.repos.EventRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,19 +24,29 @@ public class EventService {
         return eventRepo.findAll();
     }
 
-    public EventEntity save(EventEntity eventEntity) throws EventTypeNotFoundException {
+    public EventEntity save(EventEntity eventEntity) throws NotFoundException {
         Optional<EventType> eventType = eventTypeService.findEventTypeByName(eventEntity.getType().getName());
         if (eventType.isEmpty()) {
-            throw new EventTypeNotFoundException();
+            throw new NotFoundException("Тип события не найден");
         }
         eventEntity.setType(eventType.get());
         Set<UserEntity> authors = new HashSet<>();
         for (var author: eventEntity.getAuthors()) {
-            Optional<UserEntity> authorOptional = userService.getUserById(author.getId());
-            authorOptional.ifPresent(authors::add);
+            UserEntity authorOptional = userService.findById(author.getId());
+            authors.add(authorOptional);
         }
         eventEntity.setAuthors(authors);
-//        System.out.println(eventEntity);
         return eventRepo.save(eventEntity);
+    }
+
+    public EventEntity findById(long id) throws NotFoundException {
+        return eventRepo.findById(id).orElseThrow(() -> new NotFoundException("Тип события не найден"));
+    }
+
+    public EventEntity addParticipant(EventEntity event, UserEntity user) {
+        Set<UserEntity> participants = event.getParticipants();
+        participants.add(user);
+        eventRepo.save(event);
+        return event;
     }
 }

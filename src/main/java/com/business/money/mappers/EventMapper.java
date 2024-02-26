@@ -17,7 +17,7 @@ public interface EventMapper {
     @Mapping(target = "authors", source = "authors", qualifiedByName = "authors")
     EventEntity toEventEntity(CreateEventDTO createEventDTO);
 
-    EventResponseDTO toEventResponceDTO(EventEntity eventEntity);
+    EventResponseDTO toEventResponseDTO(EventEntity eventEntity);
 
     @Named(value = "authors")
     default Set<UserEntity> convertAuthors(Set<Long> ids) {
@@ -29,4 +29,6 @@ public interface EventMapper {
         }
         return authors;
     }
+
+
 }
