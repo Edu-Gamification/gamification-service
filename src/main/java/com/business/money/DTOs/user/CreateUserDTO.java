@@ -12,31 +12,24 @@ import lombok.Setter;
 public class CreateUserDTO {
     @NotBlank(message = "имя не должно быть пустым")
     @JsonProperty("name")
-    @NotNull
     private String name;
 
     @NotBlank(message = "фамилия не должна быть пустой")
-    @NotNull
-    @JsonProperty(value = "surname", required = false)
+    @JsonProperty(value = "surname")
     private String surname;
 
     @JsonProperty("patronymic")
-    @NotNull
     private String patronymic;
 
     @Email
     @NotBlank(message = "почта не должна быть пустой")
     @JsonProperty("email")
-    @NotNull
     private String email;
 
     @NotBlank(message = "пароль не должен быть пустым")
-    @NotNull
     private String password;
 
-    @JsonProperty("clan_points")
-    private int clanPoints = 0;
-
-    @JsonProperty("coins")
-    private int coins = 0;
+    @JsonProperty("clan")
+    @NotBlank(message = "Клан должен быть указан")
+    private String clan;
 }

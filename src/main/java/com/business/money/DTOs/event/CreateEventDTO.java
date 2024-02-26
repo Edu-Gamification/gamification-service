@@ -12,12 +12,10 @@ import java.util.Set;
 @Setter
 public class CreateEventDTO {
     @JsonProperty("title")
-    @NotNull(message = "Название не должно равняться null")
     @NotBlank(message = "Название не должно быть пустым")
     private String title;
 
     @NotBlank(message = "Описание не должно быть пустым")
-    @NotNull(message = "Описание не должно равняться null")
     @JsonProperty("description")
     private String description;
 

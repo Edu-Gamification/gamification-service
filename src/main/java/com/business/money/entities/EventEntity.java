@@ -10,16 +10,17 @@ import java.util.Set;
 @Table(name = "events")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "description")
     private String description;
 
     @ManyToOne
@@ -43,11 +44,15 @@ public class EventEntity {
     )
     private Set<UserEntity> participants;
 
+    @Column(name = "start_time")
     private LocalDateTime startTime;
 
+    @Column(name = "end_time")
     private LocalDateTime endTime;
 
+    @Column(name = "quote")
     private int quote;
 
+    @Column(name = "clan_only")
     private boolean clanOnly;
 }

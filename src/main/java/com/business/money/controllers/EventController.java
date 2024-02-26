@@ -23,11 +23,6 @@ public class EventController {
     private final EventMapper eventMapper;
     private final UserService userService;
 
-    @GetMapping("/")
-    public List<EventEntity> getAllEvents() {
-        return eventService.getAllEvents();
-    }
-
     @PostMapping("/")
     public EventResponseDTO saveNewEvent(@RequestBody @Valid CreateEventDTO createEventDTO) throws NotFoundException {
         EventEntity eventEntity = eventMapper.toEventEntity(createEventDTO);
@@ -39,6 +34,7 @@ public class EventController {
     public EventResponseDTO addParticipant(@RequestBody @Valid AddParticipantDTO addParticipantDTO) throws NotFoundException {
         EventEntity event = eventService.findById(addParticipantDTO.getEventId());
         UserEntity user = userService.findById(addParticipantDTO.getUserId());
-        return eventMapper.toEventResponseDTO(eventService.addParticipant(event, user));
+        EventEntity changedEvent = eventService.addParticipant(event, user);
+        return eventMapper.toEventResponseDTO(changedEvent);
     }
 }

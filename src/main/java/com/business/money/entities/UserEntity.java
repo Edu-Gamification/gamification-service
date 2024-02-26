@@ -18,22 +18,31 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "surname")
     private String surname;
 
+    @Column(name = "patronymic")
     private String patronymic;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "clan_points")
     private int clanPoints;
 
+    @Column(name = "coins")
     private int coins;
 
+    @Column(name = "active")
     private boolean active;
 
     @ToString.Exclude
@@ -42,4 +51,8 @@ public class UserEntity {
 
     @ManyToMany(mappedBy = "participants")
     private Set<EventEntity> participantOf;
+
+    @ManyToOne
+    @JoinColumn(name = "clan")
+    private ClanEntity clan;
 }

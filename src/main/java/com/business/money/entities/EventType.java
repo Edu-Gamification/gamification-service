@@ -9,18 +9,20 @@ import java.util.List;
 @Table(name = "event_types")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class EventType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "tribe_points_amount")
     private int tribePointsAmount;
 
+    @Column(name = "coins_amount")
     private int coinsAmount;
 
 //    @OneToMany

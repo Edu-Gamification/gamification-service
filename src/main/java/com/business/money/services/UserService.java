@@ -1,5 +1,6 @@
 package com.business.money.services;
 
+import com.business.money.entities.ClanEntity;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.mappers.UserMapper;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo userRepo;
-    private final UserMapper userMapper;
+    private final ClanService clanService;
 
     public List<UserEntity> getAllUsers() {
         return userRepo.findAll();
@@ -25,7 +26,9 @@ public class UserService {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Пользователь не найден"));
     }
 
-    public UserEntity saveUser(UserEntity userEntity) {
+    public UserEntity saveUser(UserEntity userEntity) throws NotFoundException {
+        ClanEntity clan = clanService.findByName(userEntity.getClan().getName());
+        userEntity.setClan(clan);
         userEntity.setActive(true);
         return userRepo.save(userEntity);
     }

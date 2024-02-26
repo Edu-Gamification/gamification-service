@@ -11,7 +11,7 @@ import org.mapstruct.Named;
 import java.util.HashSet;
 import java.util.Set;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface EventMapper {
     @Mapping(target = "type.name", source = "type")
     @Mapping(target = "authors", source = "authors", qualifiedByName = "authors")

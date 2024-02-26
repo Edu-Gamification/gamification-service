@@ -20,16 +20,14 @@ public class EventService {
     private final EventTypeService eventTypeService;
     private final UserService userService;
 
-    public List<EventEntity> getAllEvents() {
-        return eventRepo.findAll();
-    }
+//    public List<EventEntity> getAllEvents() {
+//        return eventRepo.findAll();
+//    }
 
     public EventEntity save(EventEntity eventEntity) throws NotFoundException {
-        Optional<EventType> eventType = eventTypeService.findEventTypeByName(eventEntity.getType().getName());
-        if (eventType.isEmpty()) {
-            throw new NotFoundException("Тип события не найден");
-        }
-        eventEntity.setType(eventType.get());
+        String typeName = eventEntity.getType().getName();
+        EventType eventType = eventTypeService.findEventTypeByName(typeName);
+        eventEntity.setType(eventType);
         Set<UserEntity> authors = new HashSet<>();
         for (var author: eventEntity.getAuthors()) {
             UserEntity authorOptional = userService.findById(author.getId());

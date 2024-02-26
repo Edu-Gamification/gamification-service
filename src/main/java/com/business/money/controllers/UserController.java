@@ -8,11 +8,9 @@ import com.business.money.mappers.UserMapper;
 import com.business.money.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -23,8 +21,8 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping("/")
-    public List<UserEntity> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserResponseDTO> getAllUsers() {
+        return userService.getAllUsers().stream().map(userMapper::toUserResponseDTO).toList();
     }
 
     @GetMapping("/{id}")
@@ -34,9 +32,9 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public UserEntity saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws MethodArgumentNotValidException {
+    public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException {
         UserEntity user = userMapper.toEntity(createUserDTO);
         user = userService.saveUser(user);
-        return user;
+        return userMapper.toUserResponseDTO(user);
     }
 }
