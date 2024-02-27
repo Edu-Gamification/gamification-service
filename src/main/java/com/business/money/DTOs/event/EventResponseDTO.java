@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString
 public class EventResponseDTO {
     @JsonProperty("id")
-    private long id;
+    private Long id;
 
     @JsonProperty("title")
     private String title;
@@ -33,7 +33,7 @@ public class EventResponseDTO {
     private LocalDateTime endTime;
 
     @JsonProperty("quote")
-    private int quote;
+    private Integer quote;
 
     @JsonProperty("clan_only")
     private boolean clanOnly;

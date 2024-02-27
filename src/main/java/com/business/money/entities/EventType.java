@@ -12,20 +12,21 @@ import java.util.List;
 @ToString
 public class EventType {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_types_id_seq")
+    @SequenceGenerator(name = "event_types_id_seq", sequenceName = "event_types_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "tribe_points_amount")
-    private int tribePointsAmount;
+    private Integer tribePoIntegersAmount;
 
     @Column(name = "coins_amount")
-    private int coinsAmount;
+    private Integer coinsAmount;
 
-//    @OneToMany
-//    @JoinColumn(name = "type")
-//    private List<EventEntity> eventEntities;
+    @OneToMany
+    @JoinColumn(name = "type")
+    private List<EventEntity> eventEntities;
 }

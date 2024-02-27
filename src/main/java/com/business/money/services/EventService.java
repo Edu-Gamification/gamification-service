@@ -38,7 +38,7 @@ public class EventService {
         return eventRepo.save(eventEntity);
     }
 
-    public EventEntity findById(long id) throws NotFoundException {
+    public EventEntity findById(Long id) throws NotFoundException {
         return eventRepo.findById(id).orElseThrow(() -> new NotFoundException("Тип события не найден"));
     }
 

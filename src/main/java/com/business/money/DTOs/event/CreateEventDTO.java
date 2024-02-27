@@ -33,7 +33,7 @@ public class CreateEventDTO {
 
     @Max(value = 50, message = "Максмиальное кол-во человек на мероприятии: 50")
     @JsonProperty("quote")
-    private int quote = 5;
+    private Integer quote = 5;
 
     @JsonProperty("clan_only")
     private boolean clanOnly = false;

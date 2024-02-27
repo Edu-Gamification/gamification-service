@@ -18,9 +18,10 @@ import java.util.Set;
 public class UserEntity {
   
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -38,10 +39,10 @@ public class UserEntity {
     private String password;
 
     @Column(name = "clan_points")
-    private int clanPoints;
+    private Integer clanPoIntegers;
 
     @Column(name = "coins")
-    private int coins;
+    private Integer coins;
 
     @Column(name = "active")
     private boolean active;

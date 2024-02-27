@@ -13,9 +13,10 @@ import java.util.Set;
 @ToString
 public class EventEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_id_seq")
+    @SequenceGenerator(name = "events_id_seq", sequenceName = "events_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -51,7 +52,7 @@ public class EventEntity {
     private LocalDateTime endTime;
 
     @Column(name = "quote")
-    private int quote;
+    private Integer quote;
 
     @Column(name = "clan_only")
     private boolean clanOnly;

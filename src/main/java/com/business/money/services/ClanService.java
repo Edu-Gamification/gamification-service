@@ -19,8 +19,12 @@ public class ClanService {
         return clanRepo.findByName(name).orElseThrow(() -> new NotFoundException("Клана с таким названием не существует"));
     }
 
-    public Set<UserEntity> getMembers(String name) throws NotFoundException {
-        ClanEntity clan = findByName(name);
+    public ClanEntity findById(Long id) throws NotFoundException {
+        return clanRepo.findById(id).orElseThrow(() -> new NotFoundException("Клана с таким id не существует"));
+    }
+
+    public Set<UserEntity> getMembers(Long id) throws NotFoundException {
+        ClanEntity clan = findById(id);
         return clan.getMembers();
     }
 }

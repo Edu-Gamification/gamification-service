@@ -19,7 +19,7 @@ public class ClanController {
     private final UserMapper userMapper;
 
     @GetMapping("/members")
-    public List<UserResponseDTO> getMembers(@RequestParam String name) throws NotFoundException {
-        return clanService.getMembers(name).stream().map(userMapper::toUserResponseDTO).toList();
+    public List<UserResponseDTO> getMembers(@RequestParam Long id) throws NotFoundException {
+        return clanService.getMembers(id).stream().map(userMapper::toUserResponseDTO).toList();
     }
 }

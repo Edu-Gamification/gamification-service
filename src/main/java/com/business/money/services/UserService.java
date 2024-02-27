@@ -23,7 +23,7 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public UserEntity findById(long id) throws NotFoundException {
+    public UserEntity findById(Long id) throws NotFoundException {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Пользователь не найден"));
     }
 

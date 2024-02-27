@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserResponseDTO getUserById(@PathVariable long id) throws NotFoundException {
+    public UserResponseDTO getUserById(@PathVariable Long id) throws NotFoundException {
         UserEntity foundUser = userService.findById(id);
         return userMapper.toUserResponseDTO(foundUser);
     }

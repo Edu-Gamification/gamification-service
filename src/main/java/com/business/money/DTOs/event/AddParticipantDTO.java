@@ -10,9 +10,9 @@ import lombok.Setter;
 public class AddParticipantDTO {
     @JsonProperty("user_id")
     @Min(value = 1, message = "Неверный id пользователя")
-    private long userId;
+    private Long userId;
 
     @JsonProperty("event_id")
     @Min(value = 1, message = "Неверный id события")
-    private long eventId;
+    private Long eventId;
 }

@@ -16,15 +16,16 @@ import java.util.Set;
 @AllArgsConstructor
 public class ClanEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clan_id_seq")
+    @SequenceGenerator(name = "clan_id_seq", sequenceName = "clan_id_seq", allocationSize = 1)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "points_amount")
-    private int pointsAmount;
+    private Integer poIntegersAmount;
 
     @OneToMany(mappedBy = "clan")
     private Set<UserEntity> members;

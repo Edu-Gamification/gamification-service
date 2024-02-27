@@ -11,7 +11,7 @@ import lombok.Setter;
 public class UserResponseDTO {
  
     @JsonProperty("id")
-    private long id;
+    private Long id;
 
     @JsonProperty("name")
     private String name;
@@ -26,10 +26,10 @@ public class UserResponseDTO {
     private String email;
 
     @JsonProperty("clan_points")
-    private int clanPoints;
+    private Integer clanPoIntegers;
 
     @JsonProperty("coins")
-    private int coins;
+    private Integer coins;
 
     @JsonProperty("clan")
     private String clan;
