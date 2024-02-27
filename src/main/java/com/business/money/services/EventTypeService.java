@@ -12,6 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EventTypeService {
     private final EventTypeRepo eventTypeRepo;
+
     public EventType findEventTypeByName(String name) throws NotFoundException {
         return eventTypeRepo.findEventTypeByName(name).orElseThrow(() -> new NotFoundException("Тип события не найден"));
     }

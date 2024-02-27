@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
@@ -35,7 +35,7 @@ public class UserController {
     @PostMapping("/")
     public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException, UserAlreadyExistsException {
         UserEntity user = userMapper.toEntity(createUserDTO);
-        user = userService.saveUser(user);
+        user = userService.save(user);
         return userMapper.toUserResponseDTO(user);
     }
 }

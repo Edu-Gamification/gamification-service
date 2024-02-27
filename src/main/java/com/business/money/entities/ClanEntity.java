@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "clans")
@@ -23,9 +23,9 @@ public class ClanEntity {
     @Column(name = "name")
     private String name;
 
-//    @Column(name = "points_amount")
-//    private int pointsAmount;
+    @Column(name = "points_amount")
+    private int pointsAmount;
 
     @OneToMany(mappedBy = "clan")
-    private List<UserEntity> members;
+    private Set<UserEntity> members;
 }

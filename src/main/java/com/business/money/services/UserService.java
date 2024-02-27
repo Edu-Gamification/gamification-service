@@ -27,7 +27,7 @@ public class UserService {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Пользователь не найден"));
     }
 
-    public UserEntity saveUser(UserEntity userEntity) throws NotFoundException, UserAlreadyExistsException {
+    public UserEntity save(UserEntity userEntity) throws NotFoundException, UserAlreadyExistsException {
         if (userRepo.findByEmail(userEntity.getEmail()).isPresent()) throw new UserAlreadyExistsException("Пользователь с такой почтой уже существует");
         ClanEntity clan = clanService.findByName(userEntity.getClan().getName());
         userEntity.setClan(clan);

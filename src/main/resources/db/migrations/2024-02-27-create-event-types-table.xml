@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="create-event-types-table" author="YellowKek">
+    <changeSet id="2024-02-27-create-event-types-table" author="YellowKek">
         <sql dbms="postgresql">
             CREATE TABLE event_types (
                 id BIGINT PRIMARY KEY ,
