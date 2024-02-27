@@ -4,6 +4,7 @@ import com.business.money.entities.EventEntity;
 import com.business.money.entities.EventType;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
+import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.repos.EventRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,9 @@ public class EventService {
         return eventRepo.findById(id).orElseThrow(() -> new NotFoundException("Тип события не найден"));
     }
 
-    public EventEntity addParticipant(EventEntity event, UserEntity user) {
+    public EventEntity addParticipant(EventEntity event, UserEntity user) throws UserAlreadyExistsException {
+        boolean userIsAuthor = event.getAuthors().stream().anyMatch(author -> author.getEmail().equals(user.getEmail()));
+        if (userIsAuthor) throw new UserAlreadyExistsException("Пользователь который хочет записаться на мероприятие является автором этого мероприятия");
         Set<UserEntity> participants = event.getParticipants();
         participants.add(user);
         eventRepo.save(event);
