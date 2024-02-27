@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class UserResponseDTO {
+ 
     @JsonProperty("id")
     private long id;
 
@@ -32,4 +33,7 @@ public class UserResponseDTO {
 
     @JsonProperty("clan")
     private String clan;
+
+    @JsonProperty("is_active")
+    private boolean active;
 }
