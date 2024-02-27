@@ -15,6 +15,4 @@ import java.util.Set;
 @Repository
 public interface ClanRepo extends JpaRepository<ClanEntity, Long> {
     Optional<ClanEntity> findByName(String name);
-
-//    Set<UserEntity> findAllByIdM(long id);
 }

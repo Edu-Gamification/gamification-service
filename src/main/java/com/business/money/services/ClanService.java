@@ -20,9 +20,7 @@ public class ClanService {
     }
 
     public Set<UserEntity> getMembers(String name) throws NotFoundException {
-        Optional<ClanEntity> clan = clanRepo.findByName(name);
-        if (clan.isEmpty()) throw new NotFoundException("Клан с таким именем не найден");
-        System.out.println(Arrays.toString(clan.get().getMembers().toArray()));
-        return clan.get().getMembers();
+        ClanEntity clan = findByName(name);
+        return clan.getMembers();
     }
 }
