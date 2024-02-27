@@ -24,7 +24,7 @@ public class EventController {
     private final EventMapper eventMapper;
     private final UserService userService;
 
-    @PostMapping("/")
+    @PostMapping
     public EventResponseDTO saveNewEvent(@RequestBody @Valid CreateEventDTO createEventDTO) throws NotFoundException {
         EventEntity eventEntity = eventMapper.toEventEntity(createEventDTO);
         EventEntity event = eventService.save(eventEntity);

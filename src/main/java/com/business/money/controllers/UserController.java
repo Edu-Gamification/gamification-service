@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @GetMapping("/")
+    @GetMapping
     public List<UserResponseDTO> getAllUsers() {
         return userService.getAllUsers().stream().map(userMapper::toUserResponseDTO).toList();
     }
@@ -32,7 +32,7 @@ public class UserController {
         return userMapper.toUserResponseDTO(foundUser);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException, UserAlreadyExistsException {
         UserEntity user = userMapper.toEntity(createUserDTO);
         user = userService.save(user);
