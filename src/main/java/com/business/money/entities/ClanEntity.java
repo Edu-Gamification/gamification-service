@@ -1,11 +1,12 @@
 package com.business.money.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "clans")
@@ -13,14 +14,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clan {
+public class ClanEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
+    @Column(name = "id")
     private long id;
 
-    @JsonProperty("name")
+    @Column(name = "name")
     private String name;
 
-//    private List<User> members;
+    @Column(name = "points_amount")
+    private int pointsAmount;
+
+    @OneToMany(mappedBy = "clan")
+    private Set<UserEntity> members;
 }

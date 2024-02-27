@@ -9,14 +9,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class UserResponseDTO {
+ 
     @JsonProperty("id")
     private long id;
 
-    @JsonProperty("firstname")
-    private String firstname;
+    @JsonProperty("name")
+    private String name;
 
-    @JsonProperty("lastname")
-    private String lastname;
+    @JsonProperty("surname")
+    private String surname;
 
     @JsonProperty("patronymic")
     private String patronymic;
@@ -29,6 +30,9 @@ public class UserResponseDTO {
 
     @JsonProperty("coins")
     private int coins;
+
+    @JsonProperty("clan")
+    private String clan;
 
     @JsonProperty("is_active")
     private boolean active;
