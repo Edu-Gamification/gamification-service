@@ -4,4 +4,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
+    <include file="/db/migrations/2024-02-27-create-event-types-table.xml"/>
+    <include file="/db/migrations/2024-02-27-create-events-table.xml"/>
+    <include file="/db/migrations/2024-02-27-create-clans-table.xml"/>
+    <include file="/db/migrations/2024-02-27-create-users-table.xml"/>
+    <include file="/db/migrations/2024-02-27-events-authors-table.xml"/>
+    <include file="/db/migrations/2024-02-27-events-participants.xml"/>
 </databaseChangeLog>

@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-events-participants-table" author="YellowKek">
+        <sql dbms="postgresql">
+            CREATE TABLE events_participants (
+                event_id BIGINT,
+                participant_id BIGINT,
+                PRIMARY KEY (event_id, participant_id)
+            );
+            ALTER TABLE events_participants
+            ADD CONSTRAINT fk_events_participants_event_id FOREIGN KEY (event_id) REFERENCES events (id),
+            ADD CONSTRAINT fk_events_participants_participant_id FOREIGN KEY (participant_id) REFERENCES users (id);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
