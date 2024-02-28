@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,12 +26,18 @@ public class UserController {
     private final ClanService clanService;
 
     @GetMapping
-    public List<UserResponseDTO> getAllUsers(@RequestParam(required = false) String clan) throws NotFoundException {
+    public List<UserResponseDTO> getAllUsers(@RequestParam(required = false) String clan,
+                                             @RequestParam(required = false) String email) throws NotFoundException {
+        if (email != null) {
+            return userService.findByEmailStartsWith(email).stream().map(userMapper::toUserResponseDTO).toList();
+        }
+
         if (clan != null) {
             ClanEntity clanEntity = clanService.findByName(clan);
             List<UserEntity> members = clanEntity.getMembers().stream().toList();
             return members.stream().map(userMapper::toUserResponseDTO).toList();
         }
+
         return userService.getAllUsers().stream().map(userMapper::toUserResponseDTO).toList();
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,10 @@ public class UserService {
 
     public UserEntity findById(Long id) throws NotFoundException {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+    }
+
+    public Set<UserEntity> findByEmailStartsWith(String email) {
+        return userRepo.findAllByEmailStartsWith(email);
     }
 
     public UserEntity save(UserEntity userEntity) throws NotFoundException, UserAlreadyExistsException {
