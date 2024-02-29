@@ -37,12 +37,12 @@ public class UserController {
             res = clanEntity.getMembers();
         }
 
-        if (res != null) {
+        if (email != null) {
             Set<UserEntity> users = userService.findByEmailStartsWith(email);
             res.retainAll(users);
         }
 
-        if (res != null) return res.stream().map(userMapper::toUserResponseDTO).toList();
+        if (!res.isEmpty()) return res.stream().map(userMapper::toUserResponseDTO).toList();
         return userService.getAllUsers().stream().map(userMapper::toUserResponseDTO).toList();
     }
 
