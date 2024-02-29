@@ -13,8 +13,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -28,17 +30,26 @@ public class UserController {
     @GetMapping
     public List<UserResponseDTO> getAllUsers(@RequestParam(required = false) String clan,
                                              @RequestParam(required = false) String email) throws NotFoundException {
+        Set<UserEntity> res = new HashSet<>();
         if (email != null) {
-            return userService.findByEmailStartsWith(email).stream().map(userMapper::toUserResponseDTO).toList();
+            res= userService.findByEmailStartsWith(email);
         }
-
         if (clan != null) {
             ClanEntity clanEntity = clanService.findByName(clan);
-            List<UserEntity> members = clanEntity.getMembers().stream().toList();
-            return members.stream().map(userMapper::toUserResponseDTO).toList();
+            if (res != null) {
+                for (var user: res) {
+                    if (user.getClan().getName().equals(clan)) res.add(user);
+                }
+            }
+            else {
+                res = clanEntity.getMembers();
+            }
         }
 
-        return userService.getAllUsers().stream().map(userMapper::toUserResponseDTO).toList();
+        if (res.isEmpty()) {
+            return userService.getAllUsers().stream().map(userMapper::toUserResponseDTO).toList();
+        }
+        return res.stream().map(userMapper::toUserResponseDTO).toList();
     }
 
     @GetMapping("/{id}")
