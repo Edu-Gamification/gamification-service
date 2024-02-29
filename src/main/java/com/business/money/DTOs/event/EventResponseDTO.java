@@ -24,7 +24,7 @@ public class EventResponseDTO {
     private String description;
 
     @JsonProperty("type")
-    private EventType type;
+    private String type;
 
     @JsonProperty("start_time")
     private LocalDateTime startTime;
@@ -36,11 +36,11 @@ public class EventResponseDTO {
     private Integer quote;
 
     @JsonProperty("clan_only")
-    private boolean clanOnly;
+    private Boolean clanOnly;
 
-    @JsonProperty("authors")
-    private Set<UserResponseDTO> authors;
+    @JsonProperty("authors_id")
+    private Set<Long> authorsId;
 
-    @JsonProperty("participants")
-    private Set<UserResponseDTO> participants;
+    @JsonProperty("participants_id")
+    private Set<Long> participantsId;
 }

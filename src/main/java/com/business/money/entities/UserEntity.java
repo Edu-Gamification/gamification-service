@@ -39,7 +39,7 @@ public class UserEntity {
     private String password;
 
     @Column(name = "clan_points")
-    private Integer clanPoIntegers;
+    private Integer clanPoints;
 
     @Column(name = "coins")
     private Integer coins;
@@ -52,6 +52,7 @@ public class UserEntity {
     private Set<EventEntity> authorOf;
 
     @ManyToMany(mappedBy = "participants")
+    @ToString.Exclude
     private Set<EventEntity> participantOf;
 
     @ManyToOne

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,17 @@ public class UserService {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Пользователь не найден"));
     }
 
+    public Set<UserEntity> findByEmailStartsWith(String email) {
+        return userRepo.findAllByEmailStartsWith(email);
+    }
+
     public UserEntity save(UserEntity userEntity) throws NotFoundException, UserAlreadyExistsException {
         if (userRepo.findByEmail(userEntity.getEmail()).isPresent()) throw new UserAlreadyExistsException("Пользователь с такой почтой уже существует");
         ClanEntity clan = clanService.findByName(userEntity.getClan().getName());
         userEntity.setClan(clan);
         userEntity.setActive(true);
+        userEntity.setClanPoints(0);
+        userEntity.setCoins(0);
         return userRepo.save(userEntity);
     }
 }

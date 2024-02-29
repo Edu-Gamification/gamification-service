@@ -26,7 +26,7 @@ public class UserResponseDTO {
     private String email;
 
     @JsonProperty("clan_points")
-    private Integer clanPoIntegers;
+    private Integer clanPoints;
 
     @JsonProperty("coins")
     private Integer coins;
