@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddParticipantDTO {
+public class ParticipantEventDTO {
     @JsonProperty("user_id")
     @Min(value = 1, message = "Неверный id пользователя")
     private Long userId;
