@@ -31,11 +31,16 @@ public class EventController {
         return eventMapper.toEventResponseDTO(event);
     }
 
-    @PostMapping("/assign")
+    @PostMapping("/subscribe")
     public EventResponseDTO addParticipant(@RequestBody @Valid AddParticipantDTO addParticipantDTO) throws NotFoundException, UserAlreadyExistsException {
-        EventEntity event = eventService.findById(addParticipantDTO.getEventId());
+        EventEntity eventForSubscribe = eventService.findById(addParticipantDTO.getEventId());
         UserEntity user = userService.findById(addParticipantDTO.getUserId());
-        EventEntity changedEvent = eventService.addParticipant(event, user);
+        Set<EventEntity> eventsForUser = user.getParticipantOf();
+        for (EventEntity event : eventsForUser) {
+            if (event.getStartTime().equals(eventForSubscribe.getStartTime()))
+                throw new NotFoundException("Пользователь уже записан на мероприятие идущее в это же время");
+        }
+        EventEntity changedEvent = eventService.addParticipant(eventForSubscribe, user);
         return eventMapper.toEventResponseDTO(changedEvent);
     }
 }

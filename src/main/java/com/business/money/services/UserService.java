@@ -37,6 +37,8 @@ public class UserService {
         ClanEntity clan = clanService.findByName(userEntity.getClan().getName());
         userEntity.setClan(clan);
         userEntity.setActive(true);
+        userEntity.setClanPoints(0);
+        userEntity.setCoins(0);
         return userRepo.save(userEntity);
     }
 }

@@ -2,8 +2,10 @@ package com.business.money.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -43,7 +45,7 @@ public class EventEntity {
             joinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "participant_id", referencedColumnName = "id")
     )
-    private Set<UserEntity> participants;
+    private Set<UserEntity> participants = new HashSet<>();
 
     @Column(name = "start_time")
     private LocalDateTime startTime;
@@ -55,5 +57,10 @@ public class EventEntity {
     private Integer quote;
 
     @Column(name = "clan_only")
-    private boolean clanOnly;
+    private Boolean clanOnly;
+
+//    @PostLoad
+//    public void loadEventHandler() {
+//        if (participants != null) participants = new HashSet<>();
+//    }
 }
