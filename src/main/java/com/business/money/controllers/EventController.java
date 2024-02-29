@@ -36,10 +36,8 @@ public class EventController {
         EventEntity eventForSubscribe = eventService.findById(addParticipantDTO.getEventId());
         UserEntity user = userService.findById(addParticipantDTO.getUserId());
         Set<EventEntity> eventsForUser = user.getParticipantOf();
-        for (EventEntity event : eventsForUser) {
-            if (event.getStartTime().equals(eventForSubscribe.getStartTime()))
-                throw new NotFoundException("Пользователь уже записан на мероприятие идущее в это же время");
-        }
+        if (eventsForUser.stream().anyMatch(event -> event.getStartTime().equals(eventForSubscribe.getStartTime())))
+            throw new NotFoundException("Пользователь уже записан на мероприятие идущее в это же время");
         EventEntity changedEvent = eventService.addParticipant(eventForSubscribe, user);
         return eventMapper.toEventResponseDTO(changedEvent);
     }
