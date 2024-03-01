@@ -5,13 +5,31 @@
 
     <changeSet id="2024-03-01-create-trigger-on-users-update-clan-points" author="YellowKek">
         <sql dbms="postgresql" splitStatements="false">
-            CREATE FUNCTION update_clan_points()
-                RETURNS TRIGGER AS
-                $body$
+            CREATE OR REPLACE FUNCTION update_clan_points()
+RETURNS TRIGGER AS
+            $body$
             BEGIN
+            BEGIN
+        -- Проверяем существование клана
+        PERFORM 1 FROM clans WHERE id = NEW.clan;
+        IF NOT FOUND THEN
+            RAISE EXCEPTION 'Clan with id % does not exist', NEW.clan;
+            END IF;
+
+        -- Начинаем транзакцию
+            START TRANSACTION;
+
+            -- Обновляем points_amount клана
             UPDATE clans
-            SET points_amount = points_amount + NEW.clan_points - OLD.clan_points
+            SET points_amount = points_amount + (NEW.clan_points - OLD.clan_points)
             WHERE id = NEW.clan;
+
+            COMMIT;
+            EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
+            END;
             RETURN NEW;
             END;
             $body$
@@ -21,6 +39,7 @@
                 AFTER UPDATE OF clan_points ON users
                 FOR EACH ROW
                 EXECUTE PROCEDURE update_clan_points();
+
         </sql>
     </changeSet>
 
