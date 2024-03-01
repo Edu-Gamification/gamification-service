@@ -9,22 +9,9 @@
 RETURNS TRIGGER AS
             $body$
             BEGIN
-            BEGIN
-       PERFORM 1 FROM users WHERE id = NEW.id;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION  'User with id % does not exist', NEW.id;
-            END IF;
-
-            BEGIN
             UPDATE clans
             SET points_amount = points_amount + (NEW.clan_points - OLD.clan_points)
             WHERE id = NEW.clan;
-            END;
-
-            EXCEPTION WHEN OTHERS THEN
-                RAISE;
-            END;
-
             RETURN NEW;
             END;
 
