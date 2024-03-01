@@ -10,28 +10,24 @@ RETURNS TRIGGER AS
             $body$
             BEGIN
             BEGIN
-        -- Проверяем существование клана
-        PERFORM 1 FROM clans WHERE id = NEW.clan;
+       PERFORM 1 FROM users WHERE id = NEW.id;
         IF NOT FOUND THEN
-            RAISE EXCEPTION 'Clan with id % does not exist', NEW.clan;
+            RAISE EXCEPTION  'User with id % does not exist', NEW.id;
             END IF;
 
-        -- Начинаем транзакцию
-            START TRANSACTION;
-
-            -- Обновляем points_amount клана
+            BEGIN
             UPDATE clans
             SET points_amount = points_amount + (NEW.clan_points - OLD.clan_points)
             WHERE id = NEW.clan;
-
-            COMMIT;
-            EXCEPTION
-        WHEN OTHERS THEN
-            ROLLBACK;
-            RAISE;
             END;
+
+            EXCEPTION WHEN OTHERS THEN
+                RAISE;
+            END;
+
             RETURN NEW;
             END;
+
             $body$
             LANGUAGE plpgsql;
 
