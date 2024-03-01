@@ -22,10 +22,6 @@ public class EventService {
     private final EventTypeService eventTypeService;
     private final UserService userService;
 
-//    public List<EventEntity> getAllEvents() {
-//        return eventRepo.findAll();
-//    }
-
     public EventEntity save(EventEntity eventEntity) throws NotFoundException {
         String typeName = eventEntity.getType().getName();
         EventType eventType = eventTypeService.findEventTypeByName(typeName);
@@ -54,19 +50,15 @@ public class EventService {
     }
 
     public EventEntity removeParticipant(EventEntity event, UserEntity user) throws NotFoundException {
-        boolean userIsParticipantOfThisEvent = event.getParticipants().
+        boolean userParticipant = event.getParticipants().
                 stream().
                 anyMatch(participant -> participant.getEmail().equals(user.getEmail()));
-        if (!userIsParticipantOfThisEvent) {
+        if (!userParticipant) {
             throw new RuntimeException("Пользователь не является участником этого мероприятия");
         }
 
-        Set<UserEntity> participants = event.getParticipants().
-                stream().
-                filter(participant -> !participant.getEmail().equals(user.getEmail()))
-                .collect(Collectors.toSet());
-        event.setParticipants(participants);
-        save(event);
-        return findById(event.getId());
+        Set<UserEntity> participants = event.getParticipants();
+        participants.remove(user);
+        return eventRepo.save(event);
     }
 }

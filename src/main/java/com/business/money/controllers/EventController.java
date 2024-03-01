@@ -42,10 +42,11 @@ public class EventController {
         return eventMapper.toEventResponseDTO(changedEvent);
     }
 
-    @PatchMapping("/unsubscribe")
+    @PutMapping("/unsubscribe")
     public EventResponseDTO removeParticipant(@RequestBody @Valid ParticipantEventDTO participantEventDTO) throws NotFoundException {
         EventEntity event = eventService.findById(participantEventDTO.getEventId());
         UserEntity user = userService.findById(participantEventDTO.getUserId());
-        return eventMapper.toEventResponseDTO(eventService.removeParticipant(event, user));
+        EventEntity newEvent = eventService.removeParticipant(event, user);
+        return eventMapper.toEventResponseDTO(newEvent);
     }
 }
