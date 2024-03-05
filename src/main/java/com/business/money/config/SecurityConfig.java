@@ -29,7 +29,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/api/events/**", "/api/clan/**").authenticated()
-//                        .requestMatchers("/api/users/**", "/api/admin/**").authenticated()
+                        .requestMatchers("/api/users/**", "/api/admin/**").authenticated()
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().permitAll()
                 )

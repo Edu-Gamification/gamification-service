@@ -13,7 +13,7 @@ public class UserLoginDTO {
 
     @JsonProperty("email")
     @NotBlank(message = "Почта не заполнена")
-    private String username;
+    private String email;
 
     @JsonProperty("password")
     @NotBlank(message = "Пароль не заполнен")

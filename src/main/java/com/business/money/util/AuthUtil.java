@@ -20,9 +20,9 @@ public class AuthUtil {
 
     public UserLoginResponseDTO responseAuthUser(UserEntity user, UserLoginDTO userDto) throws BadCredentialsException {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword())
+                new UsernamePasswordAuthenticationToken(userDto.getEmail(), userDto.getPassword())
         );
         String token = jwtUtil.createToken(user);
-        return new UserLoginResponseDTO(userDto.getUsername(), token);
+        return new UserLoginResponseDTO(userDto.getEmail(), token);
     }
 }

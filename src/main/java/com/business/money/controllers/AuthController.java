@@ -18,7 +18,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public UserLoginResponseDTO login(@RequestBody UserLoginDTO loginUserDto) throws Exception {
-        var user = userService.getByEmail(loginUserDto.getUsername());
+        var user = userService.getByEmail(loginUserDto.getEmail());
+//        System.out.println(user);
         return authUtil.responseAuthUser(user, loginUserDto);
     }
 }

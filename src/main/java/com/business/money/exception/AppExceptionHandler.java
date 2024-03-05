@@ -37,7 +37,6 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     private ResponseEntity<ErrorMessage> handleUsernameNotFoundException(UsernameNotFoundException exception) {
-        System.out.println("UsernameNotFoundException");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage(exception.getMessage()));
     }
 

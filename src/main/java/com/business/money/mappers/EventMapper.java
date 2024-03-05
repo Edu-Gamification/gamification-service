@@ -37,7 +37,6 @@ public interface EventMapper {
 
     @Named("mapToUserIds")
     default Set<Long> mapToUserIds(Set<UserEntity> users) {
-        System.out.println(users);
         if (users == null) return new HashSet<>();
         return users.stream()
                 .map(UserEntity::getId)

@@ -32,6 +32,7 @@ public class UserService {
 
     public UserEntity getByEmail(String email) {
         Optional<UserEntity> foundUser = userRepo.findByEmail(email);
+        System.out.println(email);
 //        if (foundUser.isEmpty()) throw new UsernameNotFoundException(email);
         return foundUser.orElse(null);
     }
