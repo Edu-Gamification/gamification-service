@@ -1,9 +1,12 @@
 package com.business.money.exception;
 
 import com.business.money.exception.exceptions.NotFoundException;
+import com.business.money.exception.exceptions.RoleNotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,7 +27,7 @@ public class AppExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     private ResponseEntity<ErrorMessage> handleEventTypeNotFound(NotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorMessage(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ErrorMessage(exception.getMessage()));
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
@@ -32,9 +35,25 @@ public class AppExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(exception.getMessage()));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    private ResponseEntity<ErrorMessage> handleUserAlreadyExistsException(RuntimeException exception) {
+    @ExceptionHandler(UsernameNotFoundException.class)
+    private ResponseEntity<ErrorMessage> handleUsernameNotFoundException(UsernameNotFoundException exception) {
+        System.out.println("UsernameNotFoundException");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage(exception.getMessage()));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    private ResponseEntity<ErrorMessage> handleBadCredentialsException(BadCredentialsException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage(exception.getMessage()));
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    private ResponseEntity<ErrorMessage> handleRoleNotFoundException(RoleNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(exception.getMessage()));
     }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    private ResponseEntity<ErrorMessage> handleUserAlreadyExistsException(RuntimeException exception) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(exception.getMessage()));
+//    }
 
 }

@@ -11,4 +11,6 @@
     <include file="/db/migrations/2024-02-27-events-authors-table.xml"/>
     <include file="/db/migrations/2024-02-27-events-participants.xml"/>
     <include file="/db/migrations/2024-03-01-create-trigger-on-users-update-clan-points.xml"/>
+    <include file="/db/migrations/2024-03-03-create-roles-table.xml"/>
+    <include file="/db/migrations/2024-03-03-create-user-role-table.xml"/>
 </databaseChangeLog>
