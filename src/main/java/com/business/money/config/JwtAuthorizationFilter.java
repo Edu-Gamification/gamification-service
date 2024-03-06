@@ -1,7 +1,6 @@
 package com.business.money.config;
 
 import com.business.money.entities.RoleEntity;
-import com.business.money.exception.exceptions.RoleNotFoundException;
 import com.business.money.services.RoleService;
 import com.business.money.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

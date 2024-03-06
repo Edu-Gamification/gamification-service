@@ -9,8 +9,8 @@ import java.util.List;
 @Table(name = "event_types")
 @Getter
 @Setter
-@ToString
 public class EventType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_types_id_seq")
     @SequenceGenerator(name = "event_types_id_seq", sequenceName = "event_types_id_seq", allocationSize = 1)

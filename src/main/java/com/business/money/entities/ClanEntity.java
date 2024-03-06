@@ -15,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClanEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clan_id_seq")
     @SequenceGenerator(name = "clan_id_seq", sequenceName = "clan_id_seq", allocationSize = 1)

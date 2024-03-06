@@ -9,6 +9,7 @@ import com.business.money.repos.UserRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class UserService {
     private final UserRepo userRepo;
     private final ClanService clanService;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     public List<UserEntity> getAllUsers() {
         return userRepo.findAll();
@@ -38,21 +40,24 @@ public class UserService {
     }
 
     @Transactional
-    public UserEntity save(UserEntity userEntity) throws NotFoundException,
-            UserAlreadyExistsException {
-        if (userRepo.findByEmail(userEntity.getEmail()).isPresent())
+    public UserEntity save(UserEntity user) throws UserAlreadyExistsException, NotFoundException {
+        if (userRepo.findByEmail(user.getEmail()).isPresent())
             throw new UserAlreadyExistsException("Пользователь с такой почтой уже существует");
-
-        ClanEntity clan = clanService.findByName(userEntity.getClan().getName());
-        userEntity.setClan(clan);
-        userEntity.setActive(true);
-        userEntity.setClanPoints(0);
-        userEntity.setCoins(0);
 
         RoleEntity roleUser = roleService.getByName("USER");
         Set<RoleEntity> roles = Set.of(roleUser);
-        userEntity.setRoles(roles);
+        user.setRoles(roles);
 
-        return userRepo.save(userEntity);
+        var encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPasswordHash(encodedPassword);
+
+        ClanEntity clan = clanService.findByName(user.getClan().getName());
+        user.setClan(clan);
+
+        user.setActive(true);
+        user.setClanPoints(0);
+        user.setCoins(0);
+
+        return userRepo.save(user);
     }
 }

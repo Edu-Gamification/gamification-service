@@ -2,7 +2,6 @@ package com.business.money.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,6 +13,7 @@ import java.util.Set;
 @Setter
 @ToString
 public class EventEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_id_seq")
     @SequenceGenerator(name = "events_id_seq", sequenceName = "events_id_seq", allocationSize = 1)
@@ -58,9 +58,4 @@ public class EventEntity {
 
     @Column(name = "clan_only")
     private Boolean clanOnly;
-
-//    @PostLoad
-//    public void loadEventHandler() {
-//        if (participants != null) participants = new HashSet<>();
-//    }
 }

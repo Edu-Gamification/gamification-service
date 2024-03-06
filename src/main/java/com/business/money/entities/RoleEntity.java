@@ -12,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class RoleEntity implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_seq")
     @SequenceGenerator(name = "roles_id_seq", sequenceName = "roles_id_seq", allocationSize = 1)

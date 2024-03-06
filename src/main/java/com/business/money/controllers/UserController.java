@@ -5,15 +5,12 @@ import com.business.money.DTOs.user.UserResponseDTO;
 import com.business.money.entities.ClanEntity;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
-import com.business.money.exception.exceptions.RoleNotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.mappers.UserMapper;
 import com.business.money.services.ClanService;
 import com.business.money.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -29,7 +26,6 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final ClanService clanService;
-    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<UserResponseDTO> getAllUsers(@RequestParam(required = false) String clan,
@@ -57,11 +53,8 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException,
-            UserAlreadyExistsException, RoleNotFoundException {
+    public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException, UserAlreadyExistsException {
         UserEntity user = userMapper.toEntity(createUserDTO);
-        var encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPasswordHash(encodedPassword);
         user = userService.save(user);
         return userMapper.toUserResponseDTO(user);
     }
