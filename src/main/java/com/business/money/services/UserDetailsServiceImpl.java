@@ -1,6 +1,5 @@
 package com.business.money.services;
 
-import com.business.money.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +14,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userService.getByEmail(email);
+        return userService.findByEmail(email);
     }
 }
