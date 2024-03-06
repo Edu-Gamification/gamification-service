@@ -27,8 +27,4 @@ public class CreateUserDTO {
 
     @NotBlank(message = "пароль не должен быть пустым")
     private String password;
-
-    @JsonProperty("clan")
-    @NotBlank(message = "Клан должен быть указан")
-    private String clan;
 }
