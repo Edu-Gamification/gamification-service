@@ -51,7 +51,7 @@ public class UserService {
         var encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPasswordHash(encodedPassword);
 
-        ClanEntity clan = clanService.findByName(user.getClan().getName());
+        ClanEntity clan = clanService.getMinClan();
         user.setClan(clan);
 
         user.setActive(true);

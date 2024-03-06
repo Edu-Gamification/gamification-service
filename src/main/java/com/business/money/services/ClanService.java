@@ -4,6 +4,7 @@ import com.business.money.entities.ClanEntity;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.repos.ClanRepo;
+import com.business.money.util.ClanComparator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,14 @@ public class ClanService {
     public Set<UserEntity> getMembers(Long id) throws NotFoundException {
         ClanEntity clan = findById(id);
         return clan.getMembers();
+    }
+
+    public List<ClanEntity> getAllClans() {
+        return clanRepo.findAll();
+    }
+
+    // возварщает клан с миниальным кол-вом участников
+    public ClanEntity getMinClan() {
+        return getAllClans().stream().min(ClanComparator::compare).get();
     }
 }
