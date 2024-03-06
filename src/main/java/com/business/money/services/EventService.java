@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,15 +46,15 @@ public class EventService {
         return event;
     }
 
-    public EventEntity removeParticipant(EventEntity event, UserEntity user) throws NotFoundException {
-        boolean userParticipant = event.getParticipants().
-                stream().
+    public EventEntity removeParticipant(EventEntity event, UserEntity user) {
+        Set<UserEntity> participants = event.getParticipants();
+
+        boolean userParticipant = participants.stream().
                 anyMatch(participant -> participant.getEmail().equals(user.getEmail()));
         if (!userParticipant) {
             throw new RuntimeException("Пользователь не является участником этого мероприятия");
         }
 
-        Set<UserEntity> participants = event.getParticipants();
         participants.remove(user);
         return eventRepo.save(event);
     }

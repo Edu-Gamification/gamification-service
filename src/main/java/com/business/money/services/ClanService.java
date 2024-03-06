@@ -1,6 +1,5 @@
 package com.business.money.services;
 
-import com.business.money.DTOs.user.UserResponseDTO;
 import com.business.money.entities.ClanEntity;
 import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
