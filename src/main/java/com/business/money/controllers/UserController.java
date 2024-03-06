@@ -62,12 +62,4 @@ public class UserController {
         user = userService.save(user);
         return userMapper.toUserResponseDTO(user);
     }
-
-    @AdminPermission
-    @PostMapping("/addAdmin")
-    public UserResponseDTO addAdminRole(@RequestParam Long id) throws NotFoundException {
-        UserEntity user = userService.findById(id);
-        userService.setAdminPermission(user);
-        return userMapper.toUserResponseDTO(user);
-    }
 }
