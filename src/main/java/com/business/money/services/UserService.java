@@ -6,6 +6,7 @@ import com.business.money.entities.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.repos.UserRepo;
+import com.business.money.util.PasswordGenerator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +23,7 @@ public class UserService {
     private final ClanService clanService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final PasswordGenerator passwordGenerator;
 
     public List<UserEntity> getAllUsers() {
         return userRepo.findAll();
@@ -48,7 +50,9 @@ public class UserService {
         Set<RoleEntity> roles = Set.of(roleUser);
         user.setRoles(roles);
 
-        var encodedPassword = passwordEncoder.encode(user.getPassword());
+        String password = passwordGenerator.generate();
+        var encodedPassword = passwordEncoder.encode(password);
+        System.out.println(password);
         user.setPasswordHash(encodedPassword);
 
         ClanEntity clan = clanService.findByName(user.getClan().getName());
