@@ -8,8 +8,8 @@
             INSERT INTO users (name, surname, password, email, active)
             VALUES ('admin', 'admin', '$2a$10$VIwYM22nkaiQ5Y9ywiGbWecYj81VGR9NCgaOr24Vo36vDlA5KA4ci', 'admin@edu.com', true);
 
-            INSERT INTO roles (name) VALUES ('USER');
-            INSERT INTO roles (name) VALUES ('ADMIN');
+            INSERT INTO roles (name) VALUES ('ROLE_USER');
+            INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
 
             INSERT INTO user_role (user_id, role_id) VALUES (currval('users_id_seq'), 1);
             INSERT INTO user_role (user_id, role_id) VALUES (currval('users_id_seq'), 2);

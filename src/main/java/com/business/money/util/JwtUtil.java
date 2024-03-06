@@ -1,6 +1,6 @@
 package com.business.money.util;
 
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.UserEntity;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.AuthenticationException;

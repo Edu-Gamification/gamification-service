@@ -1,7 +1,7 @@
 package com.business.money.services;
 
-import com.business.money.entities.ClanEntity;
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.ClanEntity;
+import com.business.money.entities.domain.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.repos.ClanRepo;
 import com.business.money.util.ClanComparator;

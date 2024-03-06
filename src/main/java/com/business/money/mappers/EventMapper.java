@@ -2,8 +2,8 @@ package com.business.money.mappers;
 
 import com.business.money.DTOs.event.CreateEventDTO;
 import com.business.money.DTOs.event.EventResponseDTO;
-import com.business.money.entities.EventEntity;
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.EventEntity;
+import com.business.money.entities.domain.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

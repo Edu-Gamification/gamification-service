@@ -1,6 +1,6 @@
 package com.business.money.repos;
 
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

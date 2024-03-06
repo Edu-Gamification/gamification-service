@@ -2,8 +2,10 @@ package com.business.money.controllers;
 
 import com.business.money.DTOs.user.CreateUserDTO;
 import com.business.money.DTOs.user.UserResponseDTO;
-import com.business.money.entities.ClanEntity;
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.ClanEntity;
+import com.business.money.entities.domain.UserEntity;
+import com.business.money.entities.security.AdminPermission;
+import com.business.money.entities.security.UserPermission;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.mappers.UserMapper;
@@ -21,13 +23,13 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
-//@PreAuthorize("hasRole('USER')")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final ClanService clanService;
 
     @GetMapping
+    @UserPermission
     public List<UserResponseDTO> getAllUsers(@RequestParam(required = false) String clan,
                                              @RequestParam(required = false) String email) throws NotFoundException {
         Set<UserEntity> res = new HashSet<>();
@@ -47,15 +49,25 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @UserPermission
     public UserResponseDTO getUserById(@PathVariable Long id) throws NotFoundException {
         UserEntity foundUser = userService.findById(id);
         return userMapper.toUserResponseDTO(foundUser);
     }
 
     @PostMapping
+    @AdminPermission
     public UserResponseDTO saveNewUser(@RequestBody @Valid CreateUserDTO createUserDTO) throws NotFoundException, UserAlreadyExistsException {
         UserEntity user = userMapper.toEntity(createUserDTO);
         user = userService.save(user);
+        return userMapper.toUserResponseDTO(user);
+    }
+
+    @AdminPermission
+    @PostMapping("/addAdmin")
+    public UserResponseDTO addAdminRole(@RequestParam Long id) throws NotFoundException {
+        UserEntity user = userService.findById(id);
+        userService.setAdminPermission(user);
         return userMapper.toUserResponseDTO(user);
     }
 }

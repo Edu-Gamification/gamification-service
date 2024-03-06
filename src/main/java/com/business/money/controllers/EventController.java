@@ -3,8 +3,9 @@ package com.business.money.controllers;
 import com.business.money.DTOs.event.CreateEventDTO;
 import com.business.money.DTOs.event.ParticipantEventDTO;
 import com.business.money.DTOs.event.EventResponseDTO;
-import com.business.money.entities.EventEntity;
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.EventEntity;
+import com.business.money.entities.domain.UserEntity;
+import com.business.money.entities.security.UserPermission;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.mappers.EventMapper;
@@ -25,6 +26,7 @@ public class EventController {
     private final UserService userService;
 
     @PostMapping
+    @UserPermission
     public EventResponseDTO saveNewEvent(@RequestBody @Valid CreateEventDTO createEventDTO) throws NotFoundException {
         EventEntity eventEntity = eventMapper.toEventEntity(createEventDTO);
         EventEntity event = eventService.save(eventEntity);
@@ -32,6 +34,7 @@ public class EventController {
     }
 
     @PostMapping("/subscribe")
+    @UserPermission
     public EventResponseDTO addParticipant(@RequestBody @Valid ParticipantEventDTO participantEventDTO) throws NotFoundException, UserAlreadyExistsException {
         EventEntity eventForSubscribe = eventService.findById(participantEventDTO.getEventId());
         UserEntity user = userService.findById(participantEventDTO.getUserId());
@@ -43,6 +46,7 @@ public class EventController {
     }
 
     @PutMapping("/unsubscribe")
+    @UserPermission
     public EventResponseDTO removeParticipant(@RequestBody @Valid ParticipantEventDTO participantEventDTO) throws NotFoundException {
         EventEntity event = eventService.findById(participantEventDTO.getEventId());
         UserEntity user = userService.findById(participantEventDTO.getUserId());

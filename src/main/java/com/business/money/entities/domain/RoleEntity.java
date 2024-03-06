@@ -1,8 +1,9 @@
-package com.business.money.entities;
+package com.business.money.entities.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Table(name = "roles")
 @Getter
 @Setter
+@ToString
 public class RoleEntity implements GrantedAuthority {
 
     @Id
@@ -22,6 +24,7 @@ public class RoleEntity implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "roles")
     private Set<UserEntity> users;
 

@@ -1,8 +1,8 @@
 package com.business.money.services;
 
-import com.business.money.entities.ClanEntity;
-import com.business.money.entities.RoleEntity;
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.ClanEntity;
+import com.business.money.entities.domain.RoleEntity;
+import com.business.money.entities.domain.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.repos.UserRepo;
@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -27,8 +28,10 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public UserEntity findByEmail(String email) {
-        return userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+    public UserEntity findByEmail(String email) throws UsernameNotFoundException {
+        Optional<UserEntity> foundUser = userRepo.findByEmail(email);
+        if (foundUser.isEmpty()) throw new UsernameNotFoundException("Пользователя с такой почтой не сущетвует");
+        return foundUser.get();
     }
 
     public UserEntity findById(Long id) throws NotFoundException {
@@ -44,7 +47,7 @@ public class UserService {
         if (userRepo.findByEmail(user.getEmail()).isPresent())
             throw new UserAlreadyExistsException("Пользователь с такой почтой уже существует");
 
-        RoleEntity roleUser = roleService.getByName("USER");
+        RoleEntity roleUser = roleService.getByName("ROLE_USER");
         Set<RoleEntity> roles = Set.of(roleUser);
         user.setRoles(roles);
 
@@ -57,12 +60,11 @@ public class UserService {
         user.setActive(true);
         user.setClanPoints(0);
         user.setCoins(0);
-
         return userRepo.save(user);
     }
 
-    public void setAdminPermission(UserEntity user) throws NotFoundException, UserAlreadyExistsException {
-        RoleEntity adminRole = roleService.getByName("ADMIN");
+    public void setAdminPermission(UserEntity user) {
+        RoleEntity adminRole = roleService.getByName("ROLE_ADMIN");
         Set<RoleEntity> roles = user.getRoles();
         roles.add(adminRole);
         userRepo.save(user);
