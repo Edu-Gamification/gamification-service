@@ -60,4 +60,11 @@ public class UserService {
 
         return userRepo.save(user);
     }
+
+    public void setAdminPermission(UserEntity user) throws NotFoundException, UserAlreadyExistsException {
+        RoleEntity adminRole = roleService.getByName("ADMIN");
+        Set<RoleEntity> roles = user.getRoles();
+        roles.add(adminRole);
+        userRepo.save(user);
+    }
 }
