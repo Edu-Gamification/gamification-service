@@ -50,9 +50,4 @@ public class AppExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(exception.getMessage()));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    private ResponseEntity<ErrorMessage> handleRuntimeException(RuntimeException exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(exception.getMessage()));
-    }
-
 }
