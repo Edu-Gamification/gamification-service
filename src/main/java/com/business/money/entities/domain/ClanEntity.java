@@ -1,4 +1,4 @@
-package com.business.money.entities;
+package com.business.money.entities.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

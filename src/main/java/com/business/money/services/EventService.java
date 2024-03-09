@@ -1,8 +1,8 @@
 package com.business.money.services;
 
-import com.business.money.entities.EventEntity;
-import com.business.money.entities.EventType;
-import com.business.money.entities.UserEntity;
+import com.business.money.entities.domain.EventEntity;
+import com.business.money.entities.domain.EventType;
+import com.business.money.entities.domain.UserEntity;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.exception.exceptions.UserAlreadyExistsException;
 import com.business.money.repos.EventRepo;

@@ -1,6 +1,6 @@
 package com.business.money.services;
 
-import com.business.money.entities.EventType;
+import com.business.money.entities.domain.EventType;
 import com.business.money.exception.exceptions.NotFoundException;
 import com.business.money.repos.EventTypeRepo;
 import lombok.RequiredArgsConstructor;

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 public class UserResponseDTO {
@@ -34,4 +36,7 @@ public class UserResponseDTO {
 
     @JsonProperty("is_active")
     private boolean active;
+
+    @JsonProperty("roles")
+    private Set<String> roles;
 }

@@ -1,6 +1,6 @@
 package com.business.money.util;
 
-import com.business.money.entities.ClanEntity;
+import com.business.money.entities.domain.ClanEntity;
 
 public class ClanComparator {
     public static int compare(ClanEntity clan1, ClanEntity clan2) {

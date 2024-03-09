@@ -1,6 +1,6 @@
 package com.business.money.repos;
 
-import com.business.money.entities.ClanEntity;
+import com.business.money.entities.domain.ClanEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

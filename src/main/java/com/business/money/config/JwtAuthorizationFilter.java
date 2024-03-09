@@ -1,6 +1,6 @@
 package com.business.money.config;
 
-import com.business.money.entities.RoleEntity;
+import com.business.money.entities.domain.RoleEntity;
 import com.business.money.services.RoleService;
 import com.business.money.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
