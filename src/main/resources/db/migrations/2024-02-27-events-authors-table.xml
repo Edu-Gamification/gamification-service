@@ -1,0 +1,20 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2024-02-27-events-authors-table" author="YellowKek">
+        <sql dbms="postgresql">
+            CREATE TABLE events_authors (
+                event_id BIGINT,
+                author_id BIGINT,
+                PRIMARY KEY (event_id, author_id)
+            );
+
+            ALTER TABLE events_authors
+            ADD CONSTRAINT fk_event_authors_event_id FOREIGN KEY (event_id) REFERENCES events (id),
+            ADD CONSTRAINT fk_event_authors_author_id FOREIGN KEY (author_id) REFERENCES users (id);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

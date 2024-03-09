@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2024-02-27-create-event-types-table" author="YellowKek">
+        <sql dbms="postgresql">
+            CREATE TABLE event_types (
+                id BIGINT PRIMARY KEY ,
+                coins_amount INTEGER DEFAULT 0,
+                name VARCHAR(50),
+                tribe_points_amount INTEGER DEFAULT 0
+            );
+            CREATE SEQUENCE event_types_id_seq INCREMENT BY 1 MINVALUE 1;
+            ALTER TABLE event_types ALTER COLUMN id SET DEFAULT NEXTVAL('event_types_id_seq');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

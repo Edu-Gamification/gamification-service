@@ -1,0 +1,14 @@
+drop table events_authors;
+drop table events_participants;
+drop table events;
+drop table event_types;
+drop table user_role;
+drop table users;
+drop table clans;
+drop table roles;
+truncate table databasechangelog restart identity;
+drop sequence clan_id_seq;
+drop sequence event_types_id_seq;
+drop sequence events_id_seq;
+drop sequence users_id_seq;
+drop sequence roles_id_seq;

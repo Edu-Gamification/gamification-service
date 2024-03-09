@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2024-02-27-create-events-table" author="YellowKek">
+        <sql dbms="postgresql">
+            CREATE TABLE events (
+                 id BIGINT PRIMARY KEY ,
+                 end_time TIMESTAMP WITH TIME ZONE NOT NULL ,
+                 start_time TIMESTAMP WITH TIME ZONE NOT NULL ,
+                 quote INTEGER DEFAULT 10 NOT NULL ,
+                 clan_only BOOLEAN DEFAULT false NOT NULL ,
+                 description VARCHAR(255) NOT NULL ,
+                 title VARCHAR(100) NOT NULL ,
+                 type BIGINT REFERENCES event_types(id)
+            );
+            CREATE SEQUENCE events_id_seq INCREMENT BY 1 MINVALUE 1;
+            ALTER TABLE events ALTER COLUMN id SET DEFAULT NEXTVAL('events_id_seq');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
